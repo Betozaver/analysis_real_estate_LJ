@@ -1,0 +1,6 @@
+For a year 2014, Ljubljana area, real estate was deeply effected
+by new development located in Poljane, Poljanski nasip. 
+There were 324 deals made under the same ID_POSLA. So, there were 324 apartments sold.
+But there is a hiccup. In other file, where there are final offers and for how much each
+ID_POSLA was sold, there is only one number: 195k. Is that per appartment= no way, that
+all were priced same
