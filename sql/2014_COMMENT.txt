@@ -3,4 +3,28 @@ by new development located in Poljane, Poljanski nasip.
 There were 324 deals made under the same ID_POSLA. So, there were 324 apartments sold.
 But there is a hiccup. In other file, where there are final offers and for how much each
 ID_POSLA was sold, there is only one number: 195k. Is that per appartment= no way, that
-all were priced same
+all were priced same. In file with buildings, we can clearly see, that apartments were different
+sizes and also there should be different prices.
+It looks like, that they have sold the whole apartment building or two, but GURS somehow
+kept all of the dealings under the same ID_POSLA and have not disclosed the REAL amount.
+We should've had 324 entries, for each apartment unit, but we only have one.
+Solution that I was thinking about is, to cut 324 apartments, since it would skew my data, 
+and absolutely destroy ML process. 
+For year 2014, in Ljubljana area, there were sold 871 apartments and houses.
+Looking at yearly report from GURS, 
+
+ID_POSLA -678772 = prodanih 324 stanovanj, cena se na ujema na poslih. Navedeno 195k
+ID_POSLA -673,636 = prodanih 11 stanovanj, cena se ne ujema na poslih. navedeno 180k
+ID_POSLA -673160 = je prodanih 11 stanovanj, cena se ne ujema. navedenih 110k
+ID_POSLA -673165 = je prodana stanovanjska hiša, 9 stanovanj. Ne ujema. 170k
+ID_POSLA -673165 = je prodana stanovanjska hiša, 6 stanovanj. ne ujema. 95k
+
+I had to erase all the multiple entries of ID_POSLA, since none of there
+entries had apartment size entred.
+Also, had to erase some of the multiple entris of ID_POSLA, with the 
+entred size, due to the fact, that it was not specified in other file, 
+for wihich of those two or three entries the price is appliable.
+
+We were left with 435 apartments/houses out of 871. which is with 50% of
+data provided.
+

@@ -1,3 +1,7 @@
 # ignore csv files
 
 **/*.csv
+
+# ignore duckdb
+
+**/*.duckdb

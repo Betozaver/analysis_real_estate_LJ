@@ -112,12 +112,114 @@ FROM gurs.main.stanovanja1 AS d
 INNER JOIN gurs.main.posli AS a 
 ON d.ID_POSLA = a.ID_POSLA;
 
--- now we have to check with addresses had multiple transactions, as is multiple ID_POSLA.
+-- 13/7/2024
+
+--- WE CHANGED DIRECTION:
+-- We have flitered the data by obcina, so we only get LJ, 
+-- then we choosed building that are for living, 
+-- and we filtered them by 'stanovanje' type
+SELECT *
+  FROM ETN_SLO_2014_KPP_KPP_DELISTAVB_20250615
+ WHERE OBCINA = 'LJUBLJANA'
+   AND VRSTA_DELA_STAVBE = 1
+   AND DEJANSKA_RABA_DELA_STAVBE LIKE '%Stanovanje%';
+
+-- GROUPBY SO WE CAN GET UNIQUE ENTRIES FOR APARTMENTS AND BUILDINGS
+SELECT * from clean_stavbe_2014
+GROUP by STEVILKA_STAVBE, STEVILKA_DELA_STAVBE;
 
 
+-- FINAL COLUMNS FOR THE FINAL TABLE
+'''
+ID_POSLA,
+SIFRA_KO,
+IME_KO,
+OBCINA,
+STEVILKA_STAVBE,
+STEVILKA_DELA_STAVBE,
+NASELJE,
+ULICA,
+HIŠNA_STEVILKA,
+STEVILKA_STANOVANJA_ALI_POSLOVNEGA_PROSTORA,
+VRSTA_DELA_STAVBE,
+LETO_IZGRADNJE_DELA_STAVBE,
+STAVBA_JE_DOKONCANA,
+GRADBENA_FAZA,
+NOVOGRADNJA,
+PRODANI_DELEZ_DELA_STAVBE,
+NASDTROPJE_DELA_STAVBE,
+DEJANSKA-RABA_DELA_STAVBE,
+POVRSINA_DELA_STAVBE,
+UPORABNA_POVRSINA,
+LETO
+'''
+--antother cleaning step for data visualization and machine learning step
+
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN E_CENTROID;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN N_CENTROID;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN POGODBENA_CENA_DELA_STAVBE;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN PROSTORI_DELA_STAVBE;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN STEVILO_SOB;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN LEGA_DELA_STAVBE_V_STAVBI;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN ATRIJ;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN PARCELNA_STEVILKA_ZA_GEOLOKACIJO;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN EVIDENTIRANOST_DELA_STAVBE;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN INTERNA_OZNAKA_DELA_STAVBE;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN DODATEK_HS;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN PRODANA_POVRSINA;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN PRODANA_POVRSINA_DELA_STAVBE;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN PRODANA_UPORABNA_POVRSINA_DELA_STAVBE;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN POVRSINA_ATRIJA;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN OPOMBE_O_NEPREMICNINI;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN STEVILO_ZUNANJIH_PARKIRNIH_MEST;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN POVRSINA_ATRIJA;
+ALTER TABLE gurs.main.clean_stavbe_2014 DROP COLUMN STOPNJA_DDV_DELA_STAVBE;
 
 
+--- another step where we check the data. In 2014 .csv files, there are some entries that are multiplied,
+--- but in table of posli, there is only one entry for each transaction.
+select count(ID_POSLA), ID_POSLA from gurs.main.clean_stavbe_2014
+GROUP BY ID_POSLA
+ORDER BY COUNT(ID_POSLA) DESC;
 
+
+---deleting the entries that have a NULL in size
+DELETE FROM gurs.main.clean_stavbe_2014 
+WHERE POVRSINA_DELA_STAVBE IS NULL;
+
+--- cheking how many entries have same ID_POSLA
+SELECT COUNT(*) AS rows_to_delete
+  FROM gurs.main.clean_stavbe_2014 c 
+ WHERE ID_POSLA IN (
+   SELECT ID_POSLA
+     FROM gurs.main.clean_stavbe_2014 c2 
+    GROUP BY ID_POSLA
+   HAVING COUNT(*) > 1
+   );
+
+-- deleting them
+DELETE FROM gurs.main.clean_stavbe_2014 
+ WHERE ID_POSLA IN (
+   SELECT ID_POSLA
+     FROM gurs.main.clean_stavbe_2014 c 
+    GROUP BY ID_POSLA
+   HAVING COUNT(*) > 1
+ );
+
+---merging the clean_stavbe_2014 table with posli table, to get the price of each apartment
+create table prodaja2014 AS
+from gurs.main.clean_stavbe_2014 as d
+INNER JOIN gurs.main.posli AS a
+ON d.ID_POSLA = a.ID_POSLA
+
+ --- .csv is ready for machine learning and data visualization
+
+---puting together with zemljisca_2014 table, only keeping matching rows
+--- of ID_POSLA from zemljisca_2014 and keeping all of the entries from 
+--- clean_stavbe_2014 table
+
+
+--- cleaning the merged table
 
 
 
