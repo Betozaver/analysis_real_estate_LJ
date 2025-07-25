@@ -1,0 +1,9 @@
+year 2023
+row count: 27,513
+
+deleting multiplied ID_POSLA
+2,311 matches
+
+inner JOIN
+
+2311 matches

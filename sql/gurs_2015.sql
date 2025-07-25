@@ -9,32 +9,23 @@ SELECT COUNT(*) FROM gurs.main.stavbe_2015;
 -- We have flitered the data by obcina, so we only get LJ, 
 -- then we choosed building that are for living, 
 -- and we filtered them by 'stanovanje' type
+CREATE TABLE gurs.main.clean_stavbe_2016 AS
 SELECT *
-  FROM gurs.main.stavbe_2015
+  FROM gurs.main.stavbe_2016
  WHERE OBCINA = 'LJUBLJANA'
-   AND VRSTA_DELA_STAVBE = 1
-   AND DEJANSKA_RABA_DELA_STAVBE LIKE '%Stanovanje%';
+   AND (VRSTA_DELA_STAVBE = 1 OR VRSTA_DELA_STAVBE = 2)
+   AND LOWER(DEJANSKA_RABA_DELA_STAVBE) LIKE '%stanovanje%';
 
 
 -- table deli_stavb has a lot of columns that are not needed for price prediction
--- droping columns as I clean the table
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN PARCELNA_STEVILKA_ZA_GEOLOKACIJO;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN INTERNA_OZNAKA_DELA_STAVBE;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN EVIDENTIRANOST_DELA_STAVBE;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN DODATEK_HS;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN PRODANA_POVRSINA_DELA_STAVBE;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN PRODANA_UPORABNA_POVRSINA_DELA_STAVBE;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN STEVILO_ZUNANJIH_PARKIRNIH_MEST;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN ATRIJ;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN POVRSINA_ATRIJA;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN OPOMBE_O_NEPREMICNINI;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN LEGA_DELA_STAVBE_V_STAVBI;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN STEVILO_SOB;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN PROSTORI_DELA_STAVBE;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN STOPNJA_DDV_DELA_STAVBE;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN E_CENTROID;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN N_CENTROID;
-ALTER TABLE gurs.main.clean_stavbe_2015 DROP COLUMN POGODBENA_CENA_DELA_STAVBE;
+-- MAKING A NEW TABLE clean_stavbe_2016
+CREATE TABLE clean_stavbe_2016_1 AS
+SELECT ID_POSLA, SIFRA_KO, IME_KO, OBCINA, STEVILKA_STAVBE, STEVILKA_DELA_STAVBE, 
+	NASELJE, ULICA, HISNA_STEVILKA, STEVILKA_STANOVANJA_ALI_POSLOVNEGA_PROSTORA, VRSTA_DELA_STAVBE,
+	LETO_IZGRADNJE_DELA_STAVBE, STAVBA_JE_DOKONCANA, GRADBENA_FAZA, NOVOGRADNJA, PRODANA_POVRSINA, 
+	PRODANI_DELEZ_DELA_STAVBE, NADSTROPJE_DELA_STAVBE, DEJANSKA_RABA_DELA_STAVBE, POVRSINA_DELA_STAVBE, 
+	UPORABNA_POVRSINA, LETO
+FROM clean_stavbe_2016;
 
 -- GROUPBY SO WE CAN GET UNIQUE ENTRIES FOR APARTMENTS AND BUILDINGS
 -- this code is only for some other database..ignore it
@@ -44,35 +35,8 @@ GROUP by STEVILKA_STAVBE, STEVILKA_DELA_STAVBE;
 ---331 matches.
 
 ---deleting the entries that have a NULL in size
-DELETE FROM gurs.main.clean_stavbe_2015 
+DELETE FROM gurs.main.clean_stavbe_2015_1 
 WHERE POVRSINA_DELA_STAVBE IS NULL;
-
-
-
--- FINAL COLUMNS FOR THE FINAL TABLE
-'''
-ID_POSLA,
-SIFRA_KO,
-IME_KO,
-OBCINA,
-STEVILKA_STAVBE,
-STEVILKA_DELA_STAVBE,
-NASELJE,
-ULICA,
-HIŠNA_STEVILKA,
-STEVILKA_STANOVANJA_ALI_POSLOVNEGA_PROSTORA,
-VRSTA_DELA_STAVBE,
-LETO_IZGRADNJE_DELA_STAVBE,
-STAVBA_JE_DOKONCANA,
-GRADBENA_FAZA,
-NOVOGRADNJA,
-PRODANI_DELEZ_DELA_STAVBE,
-NASDTROPJE_DELA_STAVBE,
-DEJANSKA-RABA_DELA_STAVBE,
-POVRSINA_DELA_STAVBE,
-UPORABNA_POVRSINA,
-LETO
-'''
 
 --- another step where we check the data. In 2014 .csv files, 
 ---there are some entries that are multiplied,
@@ -85,19 +49,19 @@ ORDER BY COUNT(ID_POSLA) DESC;
 
 --- cheking how many entries have same ID_POSLA
 SELECT COUNT(*) AS rows_to_delete
-  FROM gurs.main.clean_stavbe_2014 c 
+  FROM gurs.main.clean_stavbe_2015_1 cs  c 
  WHERE ID_POSLA IN (
    SELECT ID_POSLA
-     FROM gurs.main.clean_stavbe_2014 c2 
+     FROM gurs.main.clean_stavbe_2015_1 c2 
     GROUP BY ID_POSLA
    HAVING COUNT(*) > 1
    );
 
 -- deleting them
-DELETE FROM gurs.main.clean_stavbe_2014 
+DELETE FROM gurs.main.clean_stavbe_2015_1 
  WHERE ID_POSLA IN (
    SELECT ID_POSLA
-     FROM gurs.main.clean_stavbe_2014 c 
+     FROM gurs.main.clean_stavbe_2015_1 c 
     GROUP BY ID_POSLA
    HAVING COUNT(*) > 1
  );
@@ -108,6 +72,7 @@ SELECT ID_POSLA, VRSTA_KUPOPRODAJNEGA_POSLA, POGODBENA_CENA_ODSKODNINA, OBCINA,
        SIFRA_KO, IME_KO, STEVILKA_STAVBE, STEVILKA_DELA_STAVBE, NASELJE, ULICA, HISNA_STEVILKA
 FROM gurs.main.posli_2015;
 
+---this step is not needed
 --- deleting the entries that are not a sale
 DELETE FROM gurs.main.new_posli_2015 
 WHERE VRSTA_KUPOPRODAJNEGA_POSLA <> 1;
@@ -115,7 +80,7 @@ WHERE VRSTA_KUPOPRODAJNEGA_POSLA <> 1;
 ---merging the clean_stavbe_2014 table with posli table, to get the price of each apartment
 create table prodaja2015 AS
 from gurs.main.clean_stavbe_2015 as d
-INNER JOIN gurs.main.new_posli_2015 AS a
+INNER JOIN gurs.main.posli_2015 AS a
 ON d.ID_POSLA = a.ID_POSLA
 
 

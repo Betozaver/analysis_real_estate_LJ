@@ -1,0 +1,10 @@
+year 2019
+row count: 33,555
+after cleaning
+3,400 matches
+deleting multiplied ID_POSLA
+3,137 matches
+
+inner JOIN
+
+3137 matches

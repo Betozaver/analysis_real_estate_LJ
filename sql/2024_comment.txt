@@ -1,0 +1,10 @@
+year 2024
+row count: 23,799
+after cleaning
+2,812 matches
+deleting multiplied ID_POSLA
+2,556 matches
+
+inner JOIN
+
+2,556 matches

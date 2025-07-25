@@ -1,0 +1,10 @@
+year 2021
+row count: 33,761
+after cleaning
+3,209 matches
+deleting multiplied ID_POSLA
+3,137 matches
+
+inner JOIN
+
+2,927 matches

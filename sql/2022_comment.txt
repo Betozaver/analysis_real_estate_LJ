@@ -1,0 +1,10 @@
+year 2022
+row count: 33,7403
+after cleaning
+2,874 matches
+deleting multiplied ID_POSLA
+2,838 matches
+
+inner JOIN
+
+2,644 matches
