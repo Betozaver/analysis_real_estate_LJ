@@ -1,4 +1,5 @@
--- Cleaning csv files from GURS for year 2015
+-- Cleaning csv files from GURS for year 2014 - 2024. Applicable for Ljubljana area.
+-- This script is used to prepare the data for machine learning and visualization.
 -----------------------------------------------------------------------------------------
 -- 13/7/2024
 
@@ -9,9 +10,9 @@ SELECT COUNT(*) FROM gurs.main.stavbe_2015;
 -- We have flitered the data by obcina, so we only get LJ, 
 -- then we choosed building that are for living, 
 -- and we filtered them by 'stanovanje' type
-CREATE TABLE gurs.main.clean_stavbe_2016 AS
+CREATE TABLE gurs.main.clean_stavbe_2015 AS
 SELECT *
-  FROM gurs.main.stavbe_2016
+  FROM gurs.main.stavbe_2015
  WHERE OBCINA = 'LJUBLJANA'
    AND (VRSTA_DELA_STAVBE = 1 OR VRSTA_DELA_STAVBE = 2)
    AND LOWER(DEJANSKA_RABA_DELA_STAVBE) LIKE '%stanovanje%';
@@ -19,20 +20,20 @@ SELECT *
 
 -- table deli_stavb has a lot of columns that are not needed for price prediction
 -- MAKING A NEW TABLE clean_stavbe_2016
-CREATE TABLE clean_stavbe_2016_1 AS
+CREATE TABLE clean_stavbe_2015_1 AS
 SELECT ID_POSLA, SIFRA_KO, IME_KO, OBCINA, STEVILKA_STAVBE, STEVILKA_DELA_STAVBE, 
 	NASELJE, ULICA, HISNA_STEVILKA, STEVILKA_STANOVANJA_ALI_POSLOVNEGA_PROSTORA, VRSTA_DELA_STAVBE,
 	LETO_IZGRADNJE_DELA_STAVBE, STAVBA_JE_DOKONCANA, GRADBENA_FAZA, NOVOGRADNJA, PRODANA_POVRSINA, 
 	PRODANI_DELEZ_DELA_STAVBE, NADSTROPJE_DELA_STAVBE, DEJANSKA_RABA_DELA_STAVBE, POVRSINA_DELA_STAVBE, 
 	UPORABNA_POVRSINA, LETO
-FROM clean_stavbe_2016;
+FROM clean_stavbe_2015;
 
 -- GROUPBY SO WE CAN GET UNIQUE ENTRIES FOR APARTMENTS AND BUILDINGS
 -- this code is only for some other database..ignore it
 CREATE TABLE stavbe_gurs_2015 AS
 SELECT * from clean_stavbe_2015_202507211330
 GROUP by STEVILKA_STAVBE, STEVILKA_DELA_STAVBE;
----331 matches.
+
 
 ---deleting the entries that have a NULL in size
 DELETE FROM gurs.main.clean_stavbe_2015_1 
@@ -84,9 +85,9 @@ INNER JOIN gurs.main.posli_2015 AS a
 ON d.ID_POSLA = a.ID_POSLA
 
 ---making a new table with only the columns we need for visualization and machine learning
-CREATE TABLE new_prodaja2014 AS
+CREATE TABLE new_prodaja2015 AS
 SELECT ID_POSLA, IME_KO, NASELJE, LETO_IZGRADNJE_DELA_STAVBE,
-	POVRSINA_DELA_STAVBE, LETO, POGODBENA_CENA_ODSKODNINA FROM gurs.main.prodaja2014;
+	POVRSINA_DELA_STAVBE, LETO, POGODBENA_CENA_ODSKODNINA FROM gurs.main.prodaja2015;
   
 
 
