@@ -26,13 +26,46 @@ report GURS 2014, no data
 
 I had to erase all the multiple entries of ID_POSLA, since none of there
 entries had apartment size entered.
-Also, had to erase some of the multiple entris of ID_POSLA, with the 
-entred size, due to the fact, that it was not specified in other file, 
+Also, had to erase some of the multiple entries of ID_POSLA, with the 
+entered size, due to the fact, that it was not specified in other file, 
 for wihich of those two or three entries the price is appliable.
 
 We were left with 435 apartments/houses out of 871. which is with 50% of
 data provided.
 
+----------------------------------------------------------------------------
+2015
+We have started with raw data set. 
+I have counted the rows in the table, we are starting with 27,100 rows.
+We have data for whole Slovenia, but we are interested only in Ljubljana.
+Next step is to filter the data by obcina, so we only get Ljubljana.
+Then we choose buildings that are for living, so we filter by purpose of building.
+We are left with 762 rows. Those rows include apartments, houses, and other types of buildings that are used for living.
+
+---popravljena koda: 3280
+
+
+We save the new table.
+Make a new table, where values are groupby stevilka_stavbe and stevilka_dela_stavbe. No repeated entries.
+Deleting apartments and houses, that have NULL in size.
+Deleting entries, that are doubled.
+353 matches.
+--- 3275
+Posli - counting, all rows, begining; 31,000 rows
+step 2. deleting all entries, that are not sale. So all of the public bidding etc.
+
+---3053 matches
+
+Inner join of tables with buildings and addresses and tables with prices on ID_POSLA
+=339 matches.
+---2963matches.
+
+Big problem seems investment real estate, which is not properly recorded in GURS .csv files. A lot of missing values.
+
+sold 2700 apartments and 350 houses.
+
+
+----------------------------------------------------------------------------
 Starting 2016 set.
 Count of rows: 31,461.
 Creating clean_stavbe_2016 where we filter data by obcina, 
@@ -65,7 +98,7 @@ deleting all of the entries that have a NULL in size
 after deleting all the entries, that have multiple ID_POSLA
 we are left with: 3153
 
-
+------------------------------------------
 year 2017
 row count: 34,643
 after cleaning
@@ -75,9 +108,9 @@ deliting multiplied ID_POSLA
 
 inner JOIN
 
-3291 matches
+=3291 matches
 
-
+----------------------------------------------
 year 2018
 row count: 31,487
 after cleaning
@@ -87,8 +120,9 @@ deliting multiplied ID_POSLA
 
 inner JOIN
 
-3291 matches
+= 3291 matches
 
+--------------------------------------------------
 year 2019
 row count: 33,555
 after cleaning
@@ -98,8 +132,9 @@ deleting multiplied ID_POSLA
 
 inner JOIN
 
-3137 matches
+= 3137 matches
 
+-----------------------------------------------------
 year 2020
 row count: 30,690
 after cleaning
@@ -109,8 +144,9 @@ deleting multiplied ID_POSLA
 
 inner JOIN
 
-2860 matches
+= 2860 matches
 
+-------------------------------------------------------
 year 2021
 row count: 33,761
 after cleaning
@@ -120,8 +156,9 @@ deleting multiplied ID_POSLA
 
 inner JOIN
 
-2,927 matches
+= 2,927 matches
 
+------------------------------------------------------------
 year 2022
 row count: 33,7403
 after cleaning
@@ -133,6 +170,7 @@ inner JOIN
 
 2,644 matches
 
+-----------------------------------------------------------
 year 2023
 row count: 27,513
 
@@ -143,6 +181,7 @@ inner JOIN
 
 2311 matches
 
+------------------------------------------------------------
 year 2024
 row count: 23,799
 after cleaning
