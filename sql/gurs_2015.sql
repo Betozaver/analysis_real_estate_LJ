@@ -87,8 +87,8 @@ ON d.ID_POSLA = a.ID_POSLA
 ---making a new table with only the columns we need for visualization and machine learning
 CREATE TABLE new_prodaja2015 AS
 SELECT ID_POSLA, IME_KO, NASELJE, LETO_IZGRADNJE_DELA_STAVBE,
-	POVRSINA_DELA_STAVBE, LETO, POGODBENA_CENA_ODSKODNINA FROM gurs.main.prodaja2015;
+	POVRSINA_DELA_STAVBE, LETO, VRSTA_DELA_STAVBE, POGODBENA_CENA_ODSKODNINA FROM gurs.main.prodaja2015;
   
-
+---dodaj tudi identifikacijo stavbe 1 ali 2.op VRSTA_DELA_STAVBE!!! 30/7/2024
 
  --- .csv is ready for machine learning and data visualization
