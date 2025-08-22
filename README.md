@@ -124,6 +124,7 @@
    cadastre_join.ipynb → cadastral name harmonization
    
    05_cadastral_problems.ipynb → map preparation for Power BI
+   ([geojson slovenia](https://github.com/sebenik/toposi/blob/master/OB/obcine.geojson))
 
 🎯 Final Thoughts
 
