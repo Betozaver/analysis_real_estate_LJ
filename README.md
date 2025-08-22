@@ -11,6 +11,8 @@
    
    The goal is to understand long-term price trends (2014–2024) and build a machine learning model for forecasting prices, using only property characteristics (size, location, year built, etc.).
 
+   FIND MY REPORT: 📊 View the interactive dashboard:([my report](https://app.powerbi.com/view?r=eyJrIjoiYWMyODk2ZTgtOGIzNy00OTE2LWE2NmQtZTVjMDEyYWQwMjBjIiwidCI6IjAwNjNhZmMzLWU2OGUtNDFjOC05M2QzLTBkMjNkOWI5NTk1NiIsImMiOjl9&pageName=c12c629000018899d949&pageName=c12c629000018899d949))
+
 📖 About the Project
 
    This is an individual project focused on Ljubljana’s real estate market.
@@ -75,9 +77,8 @@
       Additional cadastral mapping → 05_cadastral_problems.ipynb.
    
    4. Visualization
-      GURS – Geodetska uprava Republike Slovenije ([official source](https://www.e-prostor.gov.si/)
-   )
-      Power BI report → 📊 View the interactive dashboard:([my report](https://app.powerbi.com/view?r=eyJrIjoiYWMyODk2ZTgtOGIzNy00OTE2LWE2NmQtZTVjMDEyYWQwMjBjIiwidCI6IjAwNjNhZmMzLWU2OGUtNDFjOC05M2QzLTBkMjNkOWI5NTk1NiIsImMiOjl9&pageName=c12c629000018899d949&pageName=c12c629000018899d949)
+     
+      Power BI report → 📊 View the interactive dashboard:([my report](https://app.powerbi.com/view?r=eyJrIjoiYWMyODk2ZTgtOGIzNy00OTE2LWE2NmQtZTVjMDEyYWQwMjBjIiwidCI6IjAwNjNhZmMzLWU2OGUtNDFjOC05M2QzLTBkMjNkOWI5NTk1NiIsImMiOjl9&pageName=c12c629000018899d949&pageName=c12c629000018899d949))
       
       Shape maps:
       
