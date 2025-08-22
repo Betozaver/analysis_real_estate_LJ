@@ -4,7 +4,7 @@ Price Forecasting with GURS & Nepremicnine.net Data (2014–2025)
 
 This project analyzes real estate prices in Ljubljana, Slovenia, using data from:
 
-GURS – Geodetska uprava Republike Slovenije (official source
+GURS – Geodetska uprava Republike Slovenije ([official source](https://www.e-prostor.gov.si/)
 )
 
 Nepremicnine.net (scraped in July 2025)
@@ -76,13 +76,11 @@ Additional cadastral mapping → 05_cadastral_problems.ipynb.
 
 4. Visualization
 
-Power BI report → 📊 View the interactive dashboard
-.
+Power BI report → 📊 View the interactive dashboard: https://app.powerbi.com/view?r=eyJrIjoiYWMyODk2ZTgtOGIzNy00OTE2LWE2NmQtZTVjMDEyYWQwMjBjIiwidCI6IjAwNjNhZmMzLWU2OGUtNDFjOC05M2QzLTBkMjNkOWI5NTk1NiIsImMiOjl9&pageName=c12c629000018899d949&pageName=c12c629000018899d949
 
 Shape maps:
 
-GeoJSON (ko.geojson) → converted to TopoJSON with MapShaper
-.
+GeoJSON (ko.geojson) → converted to TopoJSON with MapShaper.
 
 Cadastral joins handled in cadastre_join.ipynb.
 
