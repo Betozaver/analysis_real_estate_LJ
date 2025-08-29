@@ -1,4 +1,4 @@
-POWER BI VISUALISATION, FIND MY REPORT: 📊 View the interactive dashboard:([my report](https://app.powerbi.com/view?r=eyJrIjoiYWMyODk2ZTgtOGIzNy00OTE2LWE2NmQtZTVjMDEyYWQwMjBjIiwidCI6IjAwNjNhZmMzLWU2OGUtNDFjOC05M2QzLTBkMjNkOWI5NTk1NiIsImMiOjl9&pageName=c12c629000018899d949&pageName=c12c629000018899d949))
+POWER BI VISUALISATION, FIND MY REPORT: 📊 View the interactive dashboard:([my report](https://app.powerbi.com/view?r=eyJrIjoiYzFkN2QwNmUtNGJjNC00MDliLWEyMWEtOGMwODIzODc2ODA2IiwidCI6IjAwNjNhZmMzLWU2OGUtNDFjOC05M2QzLTBkMjNkOWI5NTk1NiIsImMiOjl9&pageName=c12c629000018899d949))
 
 🏡 Historical Analysis of the Ljubljana Real Estate Market
 
@@ -80,7 +80,7 @@ POWER BI VISUALISATION, FIND MY REPORT: 📊 View the interactive dashboard:([my
    
    4. Visualization
      
-      Power BI report → 📊 View the interactive dashboard:([my report](https://app.powerbi.com/view?r=eyJrIjoiYWMyODk2ZTgtOGIzNy00OTE2LWE2NmQtZTVjMDEyYWQwMjBjIiwidCI6IjAwNjNhZmMzLWU2OGUtNDFjOC05M2QzLTBkMjNkOWI5NTk1NiIsImMiOjl9&pageName=c12c629000018899d949&pageName=c12c629000018899d949))
+      Power BI report → 📊 View the interactive dashboard:([my report](https://app.powerbi.com/view?r=eyJrIjoiYzFkN2QwNmUtNGJjNC00MDliLWEyMWEtOGMwODIzODc2ODA2IiwidCI6IjAwNjNhZmMzLWU2OGUtNDFjOC05M2QzLTBkMjNkOWI5NTk1NiIsImMiOjl9&pageName=c12c629000018899d949))
       
       Shape maps:
       
